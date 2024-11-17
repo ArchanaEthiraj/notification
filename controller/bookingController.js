@@ -128,6 +128,7 @@ const updateShopStatusAndBookingStatus = async (req, res, next) => {
 
     let confirmStatus = req.query.confirm
     console.log('confirmStatus', confirmStatus)
+    const {shopId, userId, shopOwnerId} = req.query
     if (confirmStatus == 1) {
       let shopQuery = await shopUpdateRes(
         req.query.shopId,
@@ -141,6 +142,25 @@ const updateShopStatusAndBookingStatus = async (req, res, next) => {
         },
         { bookingStatus: 'Approved and Payment Pending' }
       )
+      let shopOwnerRes = await usergetByIdRes(shopOwnerId, req.headers.authorization.split(' ')[1])
+      let vendorRes = await usergetByIdRes(userId, req.headers.authorization.split(' ')[1])
+      let shopRes = await shopgetByIdRes(shopId, req.headers.authorization.split(' ')[1])
+
+      // in html button link want above there
+      let content = {
+        from: vendorRes.userEmail,
+        to: shopOwnerRes.userEmail,
+        htmlContent: `
+        <h1>Hi ${shopOwnerRes.userName},</h1>
+        <p>Vendor Name: ${vendorRes.userName}</p>
+        <p>Shop Name: ${shopRes.shopName}</p>
+        <p>Shop Price: ${shopRes.price}</p>
+        <p>Shop Owner has Accepted the request. Kindly pay the payment of ${shopRes.price} only.</p>
+        `,
+        subject: 'Booking Accepted'
+      }
+      console.log('content', content)
+      await sendEmail(content)
       console.log('req.query ---->', req.query)
       console.log('shopQuery ---->', shopQuery)
       console.log('bookQuery ---->', bookQuery)
@@ -158,6 +178,25 @@ const updateShopStatusAndBookingStatus = async (req, res, next) => {
         },
         { bookingStatus: 'Booking Rejected By Owner' }
       )
+      let shopOwnerRes = await usergetByIdRes(shopOwnerId, req.headers.authorization.split(' ')[1])
+      let vendorRes = await usergetByIdRes(userId, req.headers.authorization.split(' ')[1])
+      let shopRes = await shopgetByIdRes(shopId, req.headers.authorization.split(' ')[1])
+
+      // in html button link want above there
+      let content = {
+        from: vendorRes.userEmail,
+        to: shopOwnerRes.userEmail,
+        htmlContent: `
+         <h1>Hi ${shopOwnerRes.userName},</h1>
+        <p>Vendor Name: ${vendorRes.userName}</p>
+        <p>Shop Name: ${shopRes.shopName}</p>
+        <p>Shop Price: ${shopRes.price}</p>
+        <p>Shop Owner has Rejected the request. Thank you for Requesting.</p>
+        `,
+        subject: 'Booking Rejected'
+      }
+      console.log('content', content)
+      await sendEmail(content)
       return res.status(200).json({ message: 'Rejected Successfully!' })
     }
   } catch (error) {
