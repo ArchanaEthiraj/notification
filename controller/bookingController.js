@@ -140,7 +140,7 @@ const updateShopStatusAndBookingStatus = async (req, res, next) => {
           userId: req.query.userId,
           shopId: req.query.shopId
         },
-        { bookingStatus: 'Approved and Payment Pending' }
+        { bookingStatus: 'Approved and Verification Pending' }
       )
       let shopOwnerRes = await usergetByIdRes(shopOwnerId, req.headers.authorization.split(' ')[1])
       let vendorRes = await usergetByIdRes(userId, req.headers.authorization.split(' ')[1])
