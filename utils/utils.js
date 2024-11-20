@@ -9,7 +9,7 @@ const sendEmail = async (obj) => {
       pass: 'vudl cndb pugr mitm'
     }
   })
-  console.log('transporter ---->', transporter)
+  // console.log('transporter ---->', transporter)
   const mailOptions = {
     // from: 'archana05.doodleblue@gmail.com',
     from: obj.from,

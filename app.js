@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 const dotEnv = require('dotenv')
 const routers = require('./routes')
-
+const path =  require('path')
 app.use(express.json())
 dotEnv.config()
 
@@ -17,6 +17,7 @@ routers(app)
 app.get('/', (req, res) => {
   res.send('Hello World')
 })
+app.use('/images', express.static(path.join(__dirname, 'uploads')));
 mongoose.connect(process.env.URL_LOCAL)
 const db = mongoose.connection
 db.on('error', (error) => {

@@ -8,11 +8,11 @@ async function usergetByIdRes(ids, token) {
       data: {},
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `${token}`
+        Authorization: `Bearer ${token}`
       }
     })
     console.log('getUserDetail', getUserDetail)
-    return await getUserDetail.data
+    return await getUserDetail.data.data
   } catch (error) {
     console.log(error)
   }

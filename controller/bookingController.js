@@ -16,7 +16,7 @@ const createBooking = async (req, res, next) => {
       bookingStatus: 'pending',
       isDeleted: false
     })
-    console.log('bookingStatus', bookingRes)
+    // console.log('bookingStatus', bookingRes)
 
     if (bookingRes) {
       return res.status(500).json({ message: 'Shop Already Booked' })
@@ -35,7 +35,7 @@ const createBooking = async (req, res, next) => {
 
       let confirm_link = `http://localhost:4001/api/v1/booking/update?confirm=1&shopId=${shopId}&userId=${userId}&shopOnwerId=${shopOwnerId}`
       let rejected_link = `http://localhost:4001/api/v1/booking/update?confirm=0&shopId=${shopId}&userId=${userId}&shopOnwerId=${shopOwnerId}`
-
+// console.log('req.headers.authorization---------->', req.headers.authorization.split(' ')[1])
       let shopOwnerRes = await usergetByIdRes(shopOwnerId, req.headers.authorization.split(' ')[1])
       let vendorRes = await usergetByIdRes(userId, req.headers.authorization.split(' ')[1])
       let shopRes = await shopgetByIdRes(shopId, req.headers.authorization.split(' ')[1])
@@ -200,6 +200,7 @@ const updateShopStatusAndBookingStatus = async (req, res, next) => {
       return res.status(200).json({ message: 'Rejected Successfully!' })
     }
   } catch (error) {
+    console.log('error', error)
     return res.status(500).json({ message: 'Error', error: error })
   }
 }
