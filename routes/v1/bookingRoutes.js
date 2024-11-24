@@ -16,6 +16,7 @@ router.put('/update/:id', authenticating, checkVendor, bookingValidate, updateBo
 router.delete('/delete/:id', authenticating, checkVendor, deleteBooking)
 router.get('/list', authenticating, getAllBooking)
 router.get('/detail/:id', authenticating, getByIdBooking)
+router.get('/view/:id', getByIdBooking)// without authenticating
 router.get('/update', updateShopStatusAndBookingStatus)
 
 module.exports = router

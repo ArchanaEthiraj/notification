@@ -4,7 +4,7 @@ async function usergetByIdRes(ids, token) {
   try {
     const getUserDetail = await axios({
       method: 'get',
-      url: `http://localhost:4000/api/v1/user/detail/${ids}`,
+      url: `http://localhost:4000/api/v1/user/view/${ids}`,
       data: {},
       headers: {
         'Content-Type': 'application/json',

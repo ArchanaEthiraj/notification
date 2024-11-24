@@ -5,7 +5,7 @@ async function shopgetByIdRes(ids, token) {
     console.log('token---->', token)
     const getShopDetail = await axios({
       method: 'get',
-      url: `http://localhost:4000/api/v1/shop/detail/${ids}`,
+      url: `http://localhost:4000/api/v1/shop/view/${ids}`,
       data: {},
       headers: {
         'Content-Type': 'application/json',
