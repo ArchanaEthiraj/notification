@@ -14,7 +14,6 @@ const bookingValidate = async (req, res, next) => {
         next()
       }
     } catch (error) {
-      console.log('bookingSchema ---->', error)
       return res.status(400).json({ message: error })
     }
   }

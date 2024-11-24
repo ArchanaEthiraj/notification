@@ -12,7 +12,6 @@ async function shopgetByIdRes(ids, token) {
         Authorization: `Bearer ${token}`
       }
     })
-    console.log('getShopDetail', getShopDetail.data)
     return await getShopDetail.data.data
   } catch (error) {
     console.log(error)
@@ -30,7 +29,6 @@ async function shopUpdateRes(ids, token, obj) {
         Authorization: `Bearer ${token}`
       }
     })
-    console.log('getShopUpdate', getShopUpdate)
     return await getShopUpdate.data
   } catch (error) {
     console.log(error)

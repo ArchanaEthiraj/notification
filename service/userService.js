@@ -11,7 +11,6 @@ async function usergetByIdRes(ids, token) {
         Authorization: `Bearer ${token}`
       }
     })
-    console.log('getUserDetail', getUserDetail)
     return await getUserDetail.data.data
   } catch (error) {
     console.log(error)
