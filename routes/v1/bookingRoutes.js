@@ -14,7 +14,7 @@ const router = express.Router()
 router.post('/create', authenticating, checkVendor, bookingValidate, createBooking)
 router.put('/update/:id', authenticating, checkVendor, bookingValidate, updateBooking)
 router.delete('/delete/:id', authenticating, checkVendor, deleteBooking)
-router.get('/list', authenticating, getAllBooking)
+router.get('/list', authenticating, checkVendor, getAllBooking)
 router.get('/detail/:id', authenticating, getByIdBooking)
 router.get('/view/:id', getByIdBooking)// without authenticating
 router.get('/update', updateShopStatusAndBookingStatus)

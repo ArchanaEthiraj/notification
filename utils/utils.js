@@ -18,14 +18,17 @@ const sendEmail = async (obj) => {
     html: obj.htmlContent
   }
 
+  if (obj.attachments) {
+    mailOptions.attachments = obj.attachments
+  }
   try {
     console.log('mailOptions ---->', mailOptions)
     const info = await transporter.sendMail(mailOptions)
     return true
   } catch (error) {
     console.log('error ---->', error)
-    throw error;
+    throw error
   }
 }
 
-module.exports = {sendEmail}
+module.exports = { sendEmail }

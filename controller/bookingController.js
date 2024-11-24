@@ -91,6 +91,16 @@ const getByIdBooking = async (req, res) => {
       return res.status(400).json({ message: 'Id Required' })
     }
     let data = await Booking.findById({ _id: id })
+    data = JSON.parse(JSON.stringify(data)) // get raw data - dataValues
+    let shopRes = await shopgetByIdRes(data.shopId)
+    let vendorRes = await usergetByIdRes(data.userId)
+    let shopOwnerRes = await usergetByIdRes(data.shopOwnerId)
+    data = {
+      ...data,
+      shop_details: { ...shopRes },
+      vendor_details: { ...vendorRes },
+      shop_owner_detail: { ...shopOwnerRes }
+    }
     return res.status(200).json({ message: 'Booking Data', data: data })
   } catch (error) {
     console.log('error', error)
@@ -115,8 +125,23 @@ const deleteBooking = async (req, res) => {
 
 const getAllBooking = async (req, res) => {
   try {
-    let data = await Booking.find({ isDeleted: false })
-    return res.status(200).json({ message: 'Listed Successfully!', data: data })
+    let userId = req.user.id
+    let bookingRes = await Booking.find({ userId: userId, isDeleted: false })
+    bookingRes = JSON.parse(JSON.stringify(bookingRes))
+    let array = []
+    for (let i = 0; i < bookingRes.length; i++) {
+      const element = bookingRes[i]
+      let shopRes = await shopgetByIdRes(element.shopId)
+      let vendorRes = await usergetByIdRes(element.userId)
+      let shopOwnerRes = await usergetByIdRes(element.shopOwnerId)
+      array.push({
+        ...element,
+        shop_details: { ...shopRes },
+        vendor_details: { ...vendorRes },
+        shop_owner_detail: { ...shopOwnerRes }
+      })
+    }
+    return res.status(200).json({ message: 'Listed Successfully!', data: array })
   } catch (error) {
     return res.status(500).json({ message: 'Error', error: error })
   }
