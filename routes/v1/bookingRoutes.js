@@ -11,6 +11,8 @@ const {
 const { authenticating, checkVendor } = require('../../middleware/userAuthenticate')
 const router = express.Router()
 
+
+// BOOKING ROUTES
 router.post('/create', authenticating, checkVendor, bookingValidate, createBooking)
 router.put('/update/:id', authenticating, checkVendor, bookingValidate, updateBooking)
 router.delete('/delete/:id', authenticating, checkVendor, deleteBooking)

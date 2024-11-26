@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 
+// USER AUTHENTICATE
 const authenticating = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1]
@@ -16,6 +17,7 @@ const authenticating = (req, res, next) => {
   }
 }
 
+// CHECK SHOP OWNER AUTHENTICATE
 const checkShopOwner = (req, res, next) => {
   try {
     let userType = req.user.userType
@@ -30,6 +32,8 @@ const checkShopOwner = (req, res, next) => {
     })
   }
 }
+
+// CHECK VENDOR AUTHENTICATE
 const checkVendor = (req, res, next) => {
   try {
     let userType = req.user.userType

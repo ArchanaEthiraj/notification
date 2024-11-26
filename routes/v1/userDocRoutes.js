@@ -4,6 +4,7 @@ const { createDocument, updateDocument } = require('../../controller/userDocumen
 const upload = require('../../middleware/upload')
 const router = express.Router()
 
+// UPLOAD ROUTES
 router.post('/create', authenticating, checkVendor, upload.single('files'), createDocument)
 router.get('/update', updateDocument)
 

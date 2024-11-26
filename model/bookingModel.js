@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+// BOOKING SCHEMA
 const booking = new mongoose.Schema(
   {
     shopId: {

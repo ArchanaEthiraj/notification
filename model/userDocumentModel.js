@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+// UPLOAD DOCUMENT SCHEMA
 const userDocument = new mongoose.Schema(
   {
     docName: {

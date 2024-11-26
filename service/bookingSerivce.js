@@ -1,5 +1,6 @@
 const joi = require('joi')
 
+// BOOKING VALIDATE SCHEMA
 const bookingValidate = async (req, res, next) => {
     try {
       console.log('req.body', req.body)
@@ -17,7 +18,5 @@ const bookingValidate = async (req, res, next) => {
       return res.status(400).json({ message: error })
     }
   }
-
-  
 
 module.exports = { bookingValidate }

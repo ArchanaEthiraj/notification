@@ -4,6 +4,7 @@ const { shopgetByIdRes } = require('../service/shopService')
 const { usergetByIdRes } = require('../service/userService')
 const { sendEmail } = require('../utils/utils')
 
+// UPLOAD DOCUMENT
 const createDocument = async (req, res, next) => {
   try {
     const { bookingId } = req.body
@@ -91,6 +92,7 @@ const createDocument = async (req, res, next) => {
   }
 }
 
+// UPDATE DOCUMENT
 const updateDocument = async (req, res, next) => {
   try {
     const confirm = req.query.confirm

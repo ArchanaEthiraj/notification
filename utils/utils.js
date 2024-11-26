@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer')
 const path = require('path')
 
+// EMAIL FUNCTION
 const sendEmail = async (obj) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -9,9 +10,7 @@ const sendEmail = async (obj) => {
       pass: 'vudl cndb pugr mitm'
     }
   })
-  // console.log('transporter ---->', transporter)
   const mailOptions = {
-    // from: 'archana05.doodleblue@gmail.com',
     from: obj.from,
     to: obj.to,
     subject: obj.subject,

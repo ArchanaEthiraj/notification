@@ -4,6 +4,7 @@ const { shopgetByIdRes, shopUpdateRes } = require('../service/shopService')
 const { usergetByIdRes } = require('../service/userService')
 const { sendEmail } = require('../utils/utils')
 
+// CREATE BOOKING API
 const createBooking = async (req, res, next) => {
   try {
     const { shopId, shopOwnerId } = req.body
@@ -16,8 +17,6 @@ const createBooking = async (req, res, next) => {
       bookingStatus: 'pending',
       isDeleted: false
     })
-    // console.log('bookingStatus', bookingRes)
-
     if (bookingRes) {
       return res.status(500).json({ message: 'Shop Already Booked' })
     }
@@ -31,16 +30,12 @@ const createBooking = async (req, res, next) => {
 
     let values = await bookingCreate.save()
     if (values) {
-      // vendar and shop onwer mail functions
-
       let confirm_link = `http://localhost:4001/api/v1/booking/update?confirm=1&shopId=${shopId}&userId=${userId}&shopOwnerId=${shopOwnerId}`
       let rejected_link = `http://localhost:4001/api/v1/booking/update?confirm=0&shopId=${shopId}&userId=${userId}&shopOwnerId=${shopOwnerId}`
-      // console.log('req.headers.authorization---------->', req.headers.authorization.split(' ')[1])
       let shopOwnerRes = await usergetByIdRes(shopOwnerId, req.headers.authorization.split(' ')[1])
       let vendorRes = await usergetByIdRes(userId, req.headers.authorization.split(' ')[1])
       let shopRes = await shopgetByIdRes(shopId, req.headers.authorization.split(' ')[1])
 
-      // in html button link want above there
       let content = {
         from: vendorRes.userEmail,
         to: shopOwnerRes.userEmail,
@@ -69,6 +64,7 @@ const createBooking = async (req, res, next) => {
   }
 }
 
+// UPDATE BOOKING API
 const updateBooking = async (req, res) => {
   try {
     let id = req.params.id
@@ -84,6 +80,7 @@ const updateBooking = async (req, res) => {
   }
 }
 
+// GET BY ID BOOKING API
 const getByIdBooking = async (req, res) => {
   try {
     let id = req.params.id
@@ -108,6 +105,7 @@ const getByIdBooking = async (req, res) => {
   }
 }
 
+// DELETE BOOKING API
 const deleteBooking = async (req, res) => {
   try {
     let id = req.params.id
@@ -123,6 +121,7 @@ const deleteBooking = async (req, res) => {
   }
 }
 
+// LIST ALL BOOKING API
 const getAllBooking = async (req, res) => {
   try {
     let userId = req.user.id
@@ -147,10 +146,9 @@ const getAllBooking = async (req, res) => {
   }
 }
 
+// STATUS UPDATE API
 const updateShopStatusAndBookingStatus = async (req, res, next) => {
   try {
-    // default set the bookingstatus pendingByowner
-
     let confirmStatus = req.query.confirm
     console.log('confirmStatus', confirmStatus)
     const { shopId, userId, shopOwnerId } = req.query
@@ -158,7 +156,6 @@ const updateShopStatusAndBookingStatus = async (req, res, next) => {
     if (confirmStatus == 1) {
       let shopQuery = await shopUpdateRes(
         req.query.shopId,
-        // req.headers.authorization.split(' ')[1],
         null,
         { isActive: false }
       )
@@ -175,7 +172,6 @@ const updateShopStatusAndBookingStatus = async (req, res, next) => {
       console.log('shopOwnerRes ---->', shopOwnerRes)
       console.log('vendorRes ---->', vendorRes)
       console.log('shopRes ---->', shopRes)
-      // in html button link want above there
       let content = {
         from: shopOwnerRes?.userEmail,
         to: vendorRes?.userEmail,

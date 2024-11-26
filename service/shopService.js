@@ -1,5 +1,6 @@
 const axios = require('axios').default
 
+// GET SHOP BY ID FUCNTION
 async function shopgetByIdRes(ids, token) {
   try {
     console.log('token---->', token)
@@ -18,6 +19,7 @@ async function shopgetByIdRes(ids, token) {
   }
 }
 
+// SHOP UPDATE RESPONSE
 async function shopUpdateRes(ids, token, obj) {
   try {
     const getShopUpdate = await axios({

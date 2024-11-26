@@ -1,6 +1,7 @@
 const multer = require('multer');
 const path = require('path');
 
+// UPLOAD DODUMENT FUNCTION
 const storage = multer.diskStorage({
   destination: './uploads/',
   filename: (req, file, cb) => {
